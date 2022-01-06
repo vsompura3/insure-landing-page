@@ -28,6 +28,12 @@
   --clr-light: 0, 0%, 98%;
 }
 
+@media (min-width: 60em) {
+  :root {
+    --fs-400: 1.125rem;
+  }
+}
+
 /* ====== Reset ======== */
 
 /* Box sizing rules */
@@ -276,6 +282,10 @@ h4 {
   line-height: 1;
 }
 
+picture img {
+  max-width: 100%;
+}
+
 /* ====== component ======= */
 
 .menu-btn {
@@ -287,6 +297,8 @@ h4 {
   align-items: center;
   justify-content: space-between;
   padding-block: 1.5rem;
+  position: relative;
+  z-index: 9999;
 }
 
 .primary-navigation {
@@ -346,6 +358,11 @@ h4 {
   width: 100%;
 }
 
+.header picture.hero-img {
+  position: relative;
+  z-index: 99;
+}
+
 .features h2 {
   margin-block: 4rem;
 }
@@ -394,6 +411,10 @@ h4 {
   align-items: center;
 }
 
+.footer-info a:hover svg path {
+  fill: hsl(var(--clr-dark));
+}
+
 .footer-navigation ul {
   list-style: none;
   margin: 0;
@@ -416,10 +437,42 @@ h4 {
 
 @media (max-width: 45em) {
   .primary-navigation {
-    display: none;
+    position: fixed;
+    z-index: 99;
+    background-color: hsl(var(--clr-gray-1));
+    background-image: url('./images/bg-pattern-mobile-nav.svg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    flex-direction: column;
+    inset: 5rem 0 0 0;
+    padding-top: max(6rem, 10vw);
+    transform: translateY(-150%);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .primary-navigation[data-visible='true'] {
+    transform: translateY(0);
+  }
+
+  .primary-navigation a {
+    color: hsl(var(--clr-light));
+  }
+
+  .primary-navigation a:hover {
+    color: hsl(var(--clr-accent));
+  }
+
+  .primary-navigation li:last-child a {
+    border-color: hsl(var(--clr-light));
+  }
+
+  .primary-navigation li:last-child a:hover {
+    background-color: hsl(var(--clr-light));
+    color: hsl(var(--clr-gray-1));
   }
 
   .menu-btn {
+    cursor: pointer;
     display: block;
     position: relative;
     z-index: 9999;
@@ -510,7 +563,7 @@ h4 {
   }
 
   .about {
-    padding: 6rem 3rem;
+    padding: 4.5rem 3rem;
     justify-content: space-between;
   }
 
@@ -554,13 +607,16 @@ h4 {
   }
 
   .header-hero p {
-    font-size: 1.125rem;
+    font-size: 1.25rem;
   }
 
-  .header picture {
+  .header picture.hero-img {
     grid-column: 3;
-    position: relative;
     transform: translateY(4rem);
+  }
+
+  .features {
+    padding-block: 12rem;
   }
 
   .features h2 {
@@ -576,8 +632,66 @@ h4 {
     font-size: 1.25rem;
   }
 
+  .footer {
+    padding-block: 6rem;
+  }
+
   .footer-navigation {
     --gap: 3rem;
     grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Decorative styles */
+.about,
+.footer,
+.header {
+  position: relative;
+  z-index: 5;
+}
+
+.about,
+.footer {
+  overflow: hidden;
+}
+
+.about picture {
+  position: absolute;
+  right: 0;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+}
+
+.footer picture {
+  position: absolute;
+  left: 0;
+  z-index: -1;
+}
+
+.header picture.bg {
+  position: absolute;
+  z-index: 2;
+}
+
+.header picture.bg-left {
+  left: 0;
+  bottom: -35%;
+}
+
+.header picture.bg-right {
+  top: 0;
+  right: 0;
+  z-index: 99999;
+}
+
+@media (max-width: 45em) {
+  .header picture.bg-right {
+    top: calc(100% - 20%);
+    z-index: -1;
+  }
+
+  .header picture.bg-left {
+    bottom: calc(100% - 55%);
   }
 }
